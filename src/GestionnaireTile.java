@@ -37,9 +37,6 @@ public class GestionnaireTile
 
     public void draw(Graphics2D g2)
     {
-        g2.drawImage(this.tile[0].getImage(), 0, 0, gp.tailleTuile, gp.tailleTuile, null);
-        g2.drawImage(this.tile[1].getImage(), 64, 0, gp.tailleTuile, gp.tailleTuile, null);
-        g2.drawImage(this.tile[2].getImage(), 128, 0, gp.tailleTuile, gp.tailleTuile, null);
 
         int col = 0;
         int lig = 0;
@@ -48,8 +45,22 @@ public class GestionnaireTile
 
         while (col < gp.maxEcranCol && lig < gp.maxEcranLig)
         {
-            g2.drawImage(this.tile[0].getImage(), 0, 0, gp.tailleTuile, gp.tailleTuile, null);
+            // on dessine la première tuile puis on passe à la colonne suivante
+            g2.drawImage(this.tile[0].getImage(), x, y, gp.tailleTuile, gp.tailleTuile, null);
             col++;
+
+            // on augmente x de la taille de la tuile
+            x += gp.tailleTuile;
+
+            // si on atteint la fin de notre écran, on passe à la ligne suivante
+            if (col == gp.maxEcranCol) 
+            {
+                col = 0;
+                x = 0;
+                lig++;
+                y += gp.tailleTuile;
+
+            }
         }
 
     }
