@@ -1,6 +1,9 @@
 package jeu.tile;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -11,13 +14,52 @@ public class GestionnaireTile
 {
     private GamePanel gp;
     private Tile[] tile;
+    private int mapTileNumber[] [];
 
     public GestionnaireTile(GamePanel gp)
     {
         this.gp = gp;
         this.tile = new Tile[10];
+        this.mapTileNumber = new int[gp.maxEcranCol][gp.maxEcranLig];
 
         this.getTileImage();
+        this.loadMap();
+
+    }
+
+    public void loadMap()
+    {
+       try {
+
+            InputStream is = getClass().getResourceAsStream("/res/background/map/map0.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+            int col = 0;
+            int lig = 0;
+
+            while (col < gp.maxEcranCol && lig < gp.maxEcranLig)
+            {
+                String line = br.readLine();
+
+                while (col < gp.maxEcranCol) {
+                    String numbers[] = line.split(" ");
+                    int num = Integer.parseInt(numbers[col]);
+
+                    this.mapTileNumber[col][lig] = num;
+                    col++;
+                }
+
+                if (col == gp.maxEcranCol) {
+                    col = 0;
+                    lig++;
+                }
+
+            }
+
+            br.close();
+
+        } catch (IOException e) { e.printStackTrace();}
+
 
     }
 
@@ -45,8 +87,9 @@ public class GestionnaireTile
 
         while (col < gp.maxEcranCol && lig < gp.maxEcranLig)
         {
+            int tileNum = this.mapTileNumber[col][lig];
             // on dessine la première tuile puis on passe à la colonne suivante
-            g2.drawImage(this.tile[0].getImage(), x, y, gp.tailleTuile, gp.tailleTuile, null);
+            g2.drawImage(this.tile[tileNum].getImage(), x, y, gp.tailleTuile, gp.tailleTuile, null);
             col++;
 
             // on augmente x de la taille de la tuile
