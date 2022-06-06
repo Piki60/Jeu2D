@@ -4,8 +4,8 @@ import jeu.main.GamePanel;
 import jeu.main.KeyHandler;
 
 import java.awt.image.BufferedImage;
-
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import javax.imageio.ImageIO;
 
@@ -18,19 +18,29 @@ public class Player extends Entity
     private GamePanel  gp;
     private KeyHandler keyH;
 
+    public final int SCREEN_X;
+    public final int SCREEN_Y;
+
     public Player (GamePanel gp, KeyHandler keyH)
     {
         this.gp = gp;
         this.keyH = keyH;
+
+        this.SCREEN_X = gp.getLongueurEcran()  / 2 - (gp.getTailleTuile()/2);
+        this.SCREEN_Y = gp.getLargeurEcran ()  / 2 - (gp.getTailleTuile()/2); 
+
+        solidArea = new Rectangle(0,0,  64, 66);
+
         this.setDefaultValues();
         this.getPlayerImage();
+
 
     }
 
     public void setDefaultValues()
     {
-        x = 100;
-        y = 100;
+        worldX = gp.getTailleTuile() * 22;
+        worldY = gp.getTailleTuile() * 45;
         vitesse = 4;
         direction = "down";
 
@@ -64,16 +74,31 @@ public class Player extends Entity
         {
             if (keyH.upPressed == true) {
                 direction = "up";
-                y -= vitesse;
             } else if (keyH.downPressed == true) {
-                direction = "down";
-                y += vitesse;
+                direction = "down";                
             } else if (keyH.leftPressed == true) {
-                direction = "left";
-                x -= vitesse;
+                direction = "left";               
             } else if (keyH.rightPressed == true) {
-                direction = "right";
-                x += vitesse;
+                direction = "right";               
+            }
+
+            // Verifier la collision
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+
+            // si la collision est fausse, le jouer peut bouger
+            if ( collisionOn == false)
+            {
+                switch (direction)
+                {
+                    case "up"    :  worldY -= vitesse; break;
+                    case "down"  :  worldY += vitesse; break;
+                    case "left"  :  worldX -= vitesse; break;
+                    case "right" :  worldX += vitesse; break;
+
+                }
+
+
             }
 
             spriteCounter++;
@@ -97,7 +122,7 @@ public class Player extends Entity
     public void draw(Graphics2D g2)
     {
         //g2.setColor(Color.WHITE);
-        //g2.fillRect(x, y, gp.tailleTuile, gp.tailleTuile); // crée un rectangle et le rempli de la couleur de notre brush
+        //g2.fillRect(x, y, gp.getTailleTuile(), gp.getTailleTuile()); // crée un rectangle et le rempli de la couleur de notre brush
 
         BufferedImage image = null;
 
@@ -126,8 +151,12 @@ public class Player extends Entity
                 break;
          }
 
-        g2.drawImage(image, x, y, gp.tailleTuile, gp.tailleTuile, null);
+        g2.drawImage(image, SCREEN_X, SCREEN_Y, gp.getTailleTuile(), gp.getTailleTuile(), null);
     }
+
+
+    public int getScreenX() { return this.SCREEN_X; }
+    public int getScreenY() { return this.SCREEN_Y; }
 
 
 }

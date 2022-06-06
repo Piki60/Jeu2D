@@ -13,35 +13,35 @@ import jeu.main.GamePanel;
 public class GestionnaireTile 
 {
     private GamePanel gp;
-    private Tile[] tile;
-    private int mapTileNumber[] [];
+    public Tile[] tile;
+    public int mapTileNumber[][];
 
     public GestionnaireTile(GamePanel gp)
     {
         this.gp = gp;
         this.tile = new Tile[10];
-        this.mapTileNumber = new int[gp.maxEcranCol][gp.maxEcranLig];
+        this.mapTileNumber = new int[gp.getMaxWorldCol()][gp.getMaxWorldLig()];
 
         this.getTileImage();
-        this.loadMap();
+        this.loadMap("/res/background/map/map1.txt");
 
     }
 
-    public void loadMap()
+    public void loadMap(String cheminFichier)
     {
        try {
 
-            InputStream is = getClass().getResourceAsStream("/res/background/map/map0.txt");
+            InputStream is = getClass().getResourceAsStream(cheminFichier);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
             int lig = 0;
 
-            while (col < gp.maxEcranCol && lig < gp.maxEcranLig)
+            while (col < gp.getMaxWorldCol() && lig < gp.getMaxWorldLig())
             {
                 String line = br.readLine();
 
-                while (col < gp.maxEcranCol) {
+                while (col < gp.getMaxWorldCol()) {
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
 
@@ -49,7 +49,7 @@ public class GestionnaireTile
                     col++;
                 }
 
-                if (col == gp.maxEcranCol) {
+                if (col == gp.getMaxWorldCol()) {
                     col = 0;
                     lig++;
                 }
@@ -68,9 +68,21 @@ public class GestionnaireTile
         try {
 
             this.tile[0] = new Tile(ImageIO.read(getClass().getResourceAsStream("/res/background/grass.png")));
-            this.tile[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("/res/background/wall.png")));
-            this.tile[2] = new Tile(ImageIO.read(getClass().getResourceAsStream("/res/background/water.png")));
 
+            this.tile[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("/res/background/wall.png")));
+            this.tile[1].setCollision(true);
+
+            this.tile[2] = new Tile(ImageIO.read(getClass().getResourceAsStream("/res/background/water.png")));
+            this.tile[2].setCollision(true);
+
+            this.tile[3] = new Tile(ImageIO.read(getClass().getResourceAsStream("/res/background/dirt.png")));
+
+            this.tile[4] = new Tile(ImageIO.read(getClass().getResourceAsStream("/res/background/tree.png")));
+            this.tile[4].setCollision(true);
+
+            this.tile[5] = new Tile(ImageIO.read(getClass().getResourceAsStream("/res/background/sand.png")));
+
+            this.tile[6] = new Tile(ImageIO.read(getClass().getResourceAsStream("/res/background/plank.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,31 +92,39 @@ public class GestionnaireTile
     public void draw(Graphics2D g2)
     {
 
-        int col = 0;
-        int lig = 0;
-        int x = 0;
-        int y = 0;
-
-        while (col < gp.maxEcranCol && lig < gp.maxEcranLig)
+        int worldCol = 0;
+        int worldLig = 0;
+  
+        while (worldCol < gp.getMaxWorldCol() && worldLig < gp.getMaxWorldLig())
         {
-            int tileNum = this.mapTileNumber[col][lig];
-            // on dessine la première tuile puis on passe à la colonne suivante
-            g2.drawImage(this.tile[tileNum].getImage(), x, y, gp.tailleTuile, gp.tailleTuile, null);
-            col++;
+            int tileNum = this.mapTileNumber[worldCol][worldLig];
 
-            // on augmente x de la taille de la tuile
-            x += gp.tailleTuile;
+            int worldX = worldCol * gp.getTailleTuile();
+            int worldY = worldLig * gp.getTailleTuile();
+
+            int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().getScreenX();
+            int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().getScreenY();
+
+            if (worldX + gp.getTailleTuile() > gp.getPlayer().worldX - gp.getPlayer().getScreenX() &&
+                worldX - gp.getTailleTuile() < gp.getPlayer().worldX + gp.getPlayer().getScreenX() &&
+                worldY + gp.getTailleTuile() > gp.getPlayer().worldY - gp.getPlayer().getScreenY() &&
+                worldY - gp.getTailleTuile() < gp.getPlayer().worldY + gp.getPlayer().getScreenY() )
+            {
+                // on dessine la première tuile puis on passe à la colonne suivante
+                g2.drawImage(this.tile[tileNum].getImage(), screenX, screenY, gp.getTailleTuile(), gp.getTailleTuile(), null);
+            }
+
+            
+            worldCol++;
 
             // si on atteint la fin de notre écran, on passe à la ligne suivante
-            if (col == gp.maxEcranCol) 
+            if (worldCol == gp.getMaxWorldCol()) 
             {
-                col = 0;
-                x = 0;
-                lig++;
-                y += gp.tailleTuile;
-
+                worldCol = 0;
+                worldLig++;
             }
         }
+
 
     }
 }
