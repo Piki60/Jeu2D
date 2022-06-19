@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import javax.imageio.ImageIO;
+import javax.lang.model.util.ElementScanner14;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -147,12 +148,18 @@ public class Player extends Entity
                             gp.playerSE(3);
                             gp.obj[i] = null;
                             hasKey--;
+                            gp.ui.showMessage("Vous avez avez ouvert une porte");
+                        }
+                        else
+                        {
+                            gp.ui.showMessage("Vous avez besoin d'une cle");
                         }
                         break;
                 case "Boots" :
                         gp.playerSE(2);
                         vitesse += 2;
                         gp.obj[i]= null; 
+                        gp.ui.showMessage("Vitesse augmentee!");
                         break;
 
             }
