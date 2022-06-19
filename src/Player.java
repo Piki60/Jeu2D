@@ -148,7 +148,7 @@ public class Player extends Entity
                             gp.playerSE(3);
                             gp.obj[i] = null;
                             hasKey--;
-                            gp.ui.showMessage("Vous avez avez ouvert une porte");
+                            gp.ui.showMessage("Vous avez ouvert une porte");
                         }
                         else
                         {
@@ -161,6 +161,10 @@ public class Player extends Entity
                         gp.obj[i]= null; 
                         gp.ui.showMessage("Vitesse augmentee!");
                         break;
+                case "Chest" :
+                        gp.ui.gameFinished = true;
+                        gp.stopMusic();
+                        gp.playerSE(4);
 
             }
         }

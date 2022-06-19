@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable
     public  Sound             music      = new Sound           ();
     public  Sound             sEffect    = new Sound           ();
     public  UI                ui         = new UI              (this);
-    private Thread            jeuThread;                               //création d'un processus
+    public  Thread            jeuThread;                               //création d'un processus
 
     //entité et objet
     private Player           player    = new Player(this, keyH);
