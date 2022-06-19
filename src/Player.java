@@ -139,6 +139,7 @@ public class Player extends Entity
                         gp.playerSE(1);
                         hasKey++; 
                         gp.obj[i]= null; 
+                        gp.ui.showMessage("Vous avez obtenu une cle");
                         break;
                 case "Door":
                         if (hasKey > 0)
