@@ -31,7 +31,8 @@ public class GamePanel extends JPanel implements Runnable
     public  CollisionChecker  cChecker   = new CollisionChecker(this);
     public  GestionnaireTile  tileG      = new GestionnaireTile(this);
     public  AssetSetter       aSetter    = new AssetSetter     (this);
-    public  Sound             sound      = new Sound           ();
+    public  Sound             music      = new Sound           ();
+    public  Sound             sEffect    = new Sound           ();
     private Thread            jeuThread;                               //création d'un processus
 
     //entité et objet
@@ -122,20 +123,20 @@ public class GamePanel extends JPanel implements Runnable
 
     public void playMusic(int i)
     {
-        this.sound.setFile(i);
-        this.sound.play    ();
-        this.sound.loop    ();
+        this.music.setFile(i);
+        this.music.play    ();
+        this.music.loop    ();
     }
 
     public void stopMusic()
     {
-        this.sound.stop();
+        this.music.stop();
     }
 
     public void playerSE(int i)
     {
-        this.sound.setFile(i);
-        this.sound.play();
+        this.sEffect.setFile(i);
+        this.sEffect.play();
     }
 
 
