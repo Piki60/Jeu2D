@@ -20,6 +20,7 @@ public class Main
 
         
         gamePanel.startGameThread();
+        gamePanel.setupGame();
 
         window.pack(); // Permet à cette fenêtre d'être dimensionnée pour s'adapter à la taille et aux dispositions préférées de ses sous-composants.
         window.setVisible(true);

@@ -1,10 +1,11 @@
 package jeu.main;
 
 import jeu.entity.Player;
+import jeu.object.SuperObject;
+
 import javax.swing.JPanel;
 import jeu.tile.GestionnaireTile;
 import java.awt.*;
-import java.security.cert.CollectionCertStoreParameters;
 
 public class GamePanel extends JPanel implements Runnable
 {
@@ -27,10 +28,15 @@ public class GamePanel extends JPanel implements Runnable
     private final int WORLD_LARGEUR  = TAILLE_TUILE * MAX_WORLD_LIG;
     
     private KeyHandler       keyH      = new KeyHandler();
-    private Player           player    = new Player(this, keyH);
+    public CollisionChecker cChecker   = new CollisionChecker(this);
     public  GestionnaireTile tileG     = new GestionnaireTile(this);
     private Thread           jeuThread; //création d'un processus
-    public CollisionChecker cChecker = new CollisionChecker(this);
+
+    private Player           player    = new Player(this, keyH);
+    
+   
+    public AssetSetter aSetter         = new AssetSetter(this);
+    public SuperObject[]    obj        = new SuperObject[10]; 
     //FPS
     int FPS = 60;
 
@@ -44,6 +50,13 @@ public class GamePanel extends JPanel implements Runnable
 
         this.addKeyListener(keyH);
         this.setFocusable(true); //le panel va être focaliser sur les entrées claviers
+
+    }
+
+    public void setupGame()
+    {
+        aSetter.setObject();
+
 
     }
 
@@ -92,8 +105,18 @@ public class GamePanel extends JPanel implements Runnable
 
         Graphics2D g2 = (Graphics2D) g; //graphics2D est une classe qui implémente Graphics, elle ouvre plus de possibilités
 
+        // Tuile
+
         tileG.draw(g2);
+
+        //Object
+        for ( int cpt = 0; cpt < obj.length; cpt++)
+            if ( obj[cpt] != null)
+                obj[cpt].draw(g2, this);
+        // Joueur
         player.draw(g2);
+
+        
 
         g2.dispose(); //Supprime ce contexte graphique et libère toutes les ressources système qu'il utilise. 
     }

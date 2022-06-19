@@ -21,6 +21,8 @@ public class Player extends Entity
     public final int SCREEN_X;
     public final int SCREEN_Y;
 
+    int hasKey = 0;
+
     public Player (GamePanel gp, KeyHandler keyH)
     {
         this.gp = gp;
@@ -29,7 +31,9 @@ public class Player extends Entity
         this.SCREEN_X = gp.getLongueurEcran()  / 2 - (gp.getTailleTuile()/2);
         this.SCREEN_Y = gp.getLargeurEcran ()  / 2 - (gp.getTailleTuile()/2); 
 
-        solidArea = new Rectangle(0,0,  64, 66);
+        solidArea = new Rectangle(11,22,  42, 42);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
 
         this.setDefaultValues();
         this.getPlayerImage();
@@ -40,7 +44,7 @@ public class Player extends Entity
     public void setDefaultValues()
     {
         worldX = gp.getTailleTuile() * 22;
-        worldY = gp.getTailleTuile() * 45;
+        worldY = gp.getTailleTuile() * 24;
         vitesse = 4;
         direction = "down";
 
@@ -86,6 +90,10 @@ public class Player extends Entity
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
+            //Vérifier la collision de l'objet
+            int objIndex = gp.cChecker.checkObject(this, true);
+            this.pickUpObject(objIndex);
+
             // si la collision est fausse, le jouer peut bouger
             if ( collisionOn == false)
             {
@@ -116,6 +124,37 @@ public class Player extends Entity
 
         }
 
+
+    }
+
+    public void pickUpObject (int i)
+    {
+        if ( i != 999)
+        {
+            String objectName = gp.obj[i].name;
+
+            switch (objectName)
+            {
+                case "Key" : 
+                        hasKey++; 
+                        gp.obj[i]= null; 
+                        break;
+                case "Door":
+                        if (hasKey > 0)
+                        {
+                            gp.obj[i] = null;
+                            hasKey--;
+                        }
+                        break;
+                case "Boots" :
+                        vitesse += 2;
+                        gp.obj[i]= null; 
+                        break;
+
+            }
+        }
+
+        
 
     }
 
