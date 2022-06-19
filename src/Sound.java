@@ -13,13 +13,11 @@ public class Sound
 
     public Sound() 
     {
-        soundURL[0] = this.getClass().getResource("res/sound/BlueBoyAdventure.wav");
-        soundURL[1] = this.getClass().getResource("res/sound/coin.wav"            );
-        soundURL[2] = this.getClass().getResource("res/sound/powerup.wav"         );
-        soundURL[3] = this.getClass().getResource("res/sound/unlock.wav"          );
-        soundURL[4] = this.getClass().getResource("res/sound/fanfare.wav"         );
-        soundURL[5] = this.getClass().getResource("res/sound/BlueBoyAdventure.wav");
-        soundURL[6] = this.getClass().getResource("res/sound/BlueBoyAdventure.wav");
+        soundURL[0] = getClass().getResource("/res/sound/BlueBoyAdventure.wav");
+        soundURL[1] = getClass().getResource("/res/sound/coin.wav"            );
+        soundURL[2] = getClass().getResource("/res/sound/powerup.wav"         );
+        soundURL[3] = getClass().getResource("/res/sound/unlock.wav"          );
+        soundURL[4] = getClass().getResource("/res/sound/fanfare.wav"         );
     }
  
     public void setFile(int cpt)
@@ -30,7 +28,7 @@ public class Sound
             clip = AudioSystem.getClip();
             clip.open(ais);
 
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {}
 
     }
 
