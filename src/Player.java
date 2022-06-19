@@ -21,7 +21,7 @@ public class Player extends Entity
     public final int SCREEN_X;
     public final int SCREEN_Y;
 
-    int hasKey = 0;
+    public int hasKey = 0;
 
     public Player (GamePanel gp, KeyHandler keyH)
     {

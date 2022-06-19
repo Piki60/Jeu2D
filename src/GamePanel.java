@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable
     public  AssetSetter       aSetter    = new AssetSetter     (this);
     public  Sound             music      = new Sound           ();
     public  Sound             sEffect    = new Sound           ();
+    public  UI                ui         = new UI              (this);
     private Thread            jeuThread;                               //création d'un processus
 
     //entité et objet
@@ -116,6 +117,7 @@ public class GamePanel extends JPanel implements Runnable
         // Joueur
         player.draw(g2);
 
+        ui.draw(g2);
         
 
         g2.dispose(); //Supprime ce contexte graphique et libère toutes les ressources système qu'il utilise. 
