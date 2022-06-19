@@ -1,10 +1,11 @@
 package jeu.main;
 
-import jeu.entity.Player;
-import jeu.object.SuperObject;
+import jeu.main.*;
+import jeu.entity.*;
+import jeu.object.*;
+import jeu.tile.*;
 
 import javax.swing.JPanel;
-import jeu.tile.GestionnaireTile;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable
@@ -24,19 +25,18 @@ public class GamePanel extends JPanel implements Runnable
     // paramètres du monde
     private final int MAX_WORLD_COL  = 50;
     private final int MAX_WORLD_LIG  = 50;
-    private final int WORLD_LONGUEUR = TAILLE_TUILE * MAX_WORLD_COL;
-    private final int WORLD_LARGEUR  = TAILLE_TUILE * MAX_WORLD_LIG;
     
-    private KeyHandler       keyH      = new KeyHandler();
-    public CollisionChecker cChecker   = new CollisionChecker(this);
-    public  GestionnaireTile tileG     = new GestionnaireTile(this);
-    private Thread           jeuThread; //création d'un processus
+    //système
+    private KeyHandler        keyH       = new KeyHandler      ();
+    public  CollisionChecker  cChecker   = new CollisionChecker(this);
+    public  GestionnaireTile  tileG      = new GestionnaireTile(this);
+    public  AssetSetter       aSetter    = new AssetSetter     (this);
+    public  Sound             sound      = new Sound           ();
+    private Thread            jeuThread;                               //création d'un processus
 
+    //entité et objet
     private Player           player    = new Player(this, keyH);
-    
-   
-    public AssetSetter aSetter         = new AssetSetter(this);
-    public SuperObject[]    obj        = new SuperObject[10]; 
+    public SuperObject[]     obj        = new SuperObject[10]; 
     //FPS
     int FPS = 60;
 
@@ -56,8 +56,7 @@ public class GamePanel extends JPanel implements Runnable
     public void setupGame()
     {
         aSetter.setObject();
-
-
+        this.playMusic(0);
     }
 
     public void startGameThread()
@@ -121,6 +120,24 @@ public class GamePanel extends JPanel implements Runnable
         g2.dispose(); //Supprime ce contexte graphique et libère toutes les ressources système qu'il utilise. 
     }
 
+    public void playMusic(int i)
+    {
+        this.sound.setFile(i);
+        this.sound.play    ();
+        this.sound.loop    ();
+    }
+
+    public void stopMusic()
+    {
+        this.sound.stop();
+    }
+
+    public void playerSE(int i)
+    {
+        this.sound.setFile(i);
+        this.sound.play();
+    }
+
 
     public int    getMaxEcranLig  () { return this.MAX_ECRAN_LIG ; }
     public int    getMaxEcranCol  () { return this.MAX_ECRAN_COL ; }
@@ -129,8 +146,6 @@ public class GamePanel extends JPanel implements Runnable
     public int    getLargeurEcran () { return this.LARGEUR_ECRAN ; }
     public int    getMaxWorldCol  () { return this.MAX_WORLD_COL ; }
     public int    getMaxWorldLig  () { return this.MAX_WORLD_LIG ; }
-    public int    getWorldLongueur() { return this.WORLD_LONGUEUR; }
-    public int    getWorldLargeur () { return this.WORLD_LARGEUR ; }
     public Player getPlayer       () { return this.player        ; }
 
 
