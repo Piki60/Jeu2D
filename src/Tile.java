@@ -20,8 +20,6 @@ public class Tile
     }
 
 
-    public void setCollision(boolean b)
-    {
-        this.collision = b;    
-    }
+    public void    setCollision (boolean b) { this.collision = b   ;}
+    public boolean getCollision          () { return this.collision;}
 }

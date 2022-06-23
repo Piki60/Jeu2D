@@ -19,10 +19,10 @@ public class Player extends Entity
     private GamePanel  gp;
     private KeyHandler keyH;
 
-    public final int SCREEN_X;
-    public final int SCREEN_Y;
+    private final int SCREEN_X;
+    private final int SCREEN_Y;
 
-    public int hasKey = 0;
+    private int hasKey = 0;
 
     public Player (GamePanel gp, KeyHandler keyH)
     {
@@ -46,7 +46,7 @@ public class Player extends Entity
     {
         worldX = gp.getTailleTuile() * 22;
         worldY = gp.getTailleTuile() * 24;
-        vitesse = 4;
+        vitesse = 5;
         direction = "down";
 
     }
@@ -89,10 +89,10 @@ public class Player extends Entity
 
             // Verifier la collision
             collisionOn = false;
-            gp.cChecker.checkTile(this);
+            gp.getCchecker().checkTile(this);
 
             //Vérifier la collision de l'objet
-            int objIndex = gp.cChecker.checkObject(this, true);
+            int objIndex = gp.getCchecker().checkObject(this, true);
             this.pickUpObject(objIndex);
 
             // si la collision est fausse, le jouer peut bouger
@@ -111,16 +111,22 @@ public class Player extends Entity
             }
 
             spriteCounter++;
-            if (spriteCounter > 12) { //quand il rafraichît l'image pour la 15ème fois il switche d'image
-                if (spriteNum == 0) {
+            if (spriteCounter > 12)   //quand il rafraichît l'image pour la 12ème fois il switche d'image
+            {
+                if (spriteNum == 0) 
+                {
                     spriteNum = 1;
-                } else if (spriteNum == 1) {
+                } 
+                else if (spriteNum == 1) 
+                {
                     spriteNum = 2;
-                } else if (spriteNum == 2) {
+                } 
+                else if (spriteNum == 2) 
+                {
                     spriteNum = 0;
                 }
 
-                spriteCounter = -1; // il retourne à -1 pour débuter à 0 et recommencer la boucle
+                spriteCounter = -1;  // il retourne à -1 pour débuter à 0 et recommencer la boucle
             }
 
         }
@@ -132,21 +138,21 @@ public class Player extends Entity
     {
         if ( i != 999)
         {
-            String objectName = gp.obj[i].name;
+            String objectName = gp.getObject(i).getName();
 
             switch (objectName)
             {
                 case "Key" : 
                         gp.playerSE(1);
                         hasKey++; 
-                        gp.obj[i]= null; 
+                        gp.setObject(i, null); 
                         gp.ui.showMessage("Vous avez obtenu une cle");
                         break;
                 case "Door":
                         if (hasKey > 0)
                         {
                             gp.playerSE(3);
-                            gp.obj[i] = null;
+                            gp.setObject(i, null);
                             hasKey--;
                             gp.ui.showMessage("Vous avez ouvert une porte");
                         }
@@ -158,7 +164,7 @@ public class Player extends Entity
                 case "Boots" :
                         gp.playerSE(2);
                         vitesse += 2;
-                        gp.obj[i]= null; 
+                        gp.setObject(i, null); 
                         gp.ui.showMessage("Vitesse augmentee!");
                         break;
                 case "Chest" :
@@ -211,6 +217,9 @@ public class Player extends Entity
 
     public int getScreenX() { return this.SCREEN_X; }
     public int getScreenY() { return this.SCREEN_Y; }
+    public int getWorldX () { return this.worldX  ; }
+    public int getWorldY () { return this.worldY  ; }
+    public int getHasKey () { return this.hasKey  ; }
 
 
 }

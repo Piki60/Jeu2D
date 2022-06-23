@@ -13,13 +13,13 @@ import jeu.main.GamePanel;
 public class GestionnaireTile 
 {
     private GamePanel gp;
-    public Tile[] tile;
-    public int mapTileNumber[][];
+    public  Tile[] tile;
+    public  int mapTileNumber[][];
 
     public GestionnaireTile(GamePanel gp)
     {
-        this.gp = gp;
-        this.tile = new Tile[10];
+        this.gp            = gp;
+        this.tile          = new Tile[10];
         this.mapTileNumber = new int[gp.getMaxWorldCol()][gp.getMaxWorldLig()];
 
         this.getTileImage();
@@ -102,13 +102,13 @@ public class GestionnaireTile
             int worldX = worldCol * gp.getTailleTuile();
             int worldY = worldLig * gp.getTailleTuile();
 
-            int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().getScreenX();
-            int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().getScreenY();
+            int screenX = worldX - gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX();
+            int screenY = worldY - gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY();
 
-            if (worldX + gp.getTailleTuile() > gp.getPlayer().worldX - gp.getPlayer().getScreenX() &&
-                worldX - gp.getTailleTuile() < gp.getPlayer().worldX + gp.getPlayer().getScreenX() &&
-                worldY + gp.getTailleTuile() > gp.getPlayer().worldY - gp.getPlayer().getScreenY() &&
-                worldY - gp.getTailleTuile() < gp.getPlayer().worldY + gp.getPlayer().getScreenY() )
+            if (worldX + gp.getTailleTuile() > gp.getPlayer().getWorldX() - gp.getPlayer().getScreenX() &&
+                worldX - gp.getTailleTuile() < gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX() &&
+                worldY + gp.getTailleTuile() > gp.getPlayer().getWorldY() - gp.getPlayer().getScreenY() &&
+                worldY - gp.getTailleTuile() < gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY() )
             {
                 // on dessine la première tuile puis on passe à la colonne suivante
                 g2.drawImage(this.tile[tileNum].getImage(), screenX, screenY, gp.getTailleTuile(), gp.getTailleTuile(), null);

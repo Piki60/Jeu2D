@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.security.MessageDigest;
+import java.text.DecimalFormat;
 
 public class UI 
 {
@@ -21,20 +22,22 @@ public class UI
 
     public boolean gameFinished = false;
 
+    public double  playTime;
+    DecimalFormat dFormat = new DecimalFormat("#0.00");
+
     public UI(GamePanel gp)
     {
-        this.gp = gp;
-        this.arial_40 = new Font("Arial", Font.PLAIN, 40);
+        this.gp        = gp;
+        this.arial_40  = new Font("Arial", Font.PLAIN, 40);
         this.arial_80B = new Font("Arial", Font.BOLD, 80);
-        Obj_Key key = new Obj_Key();
-        this.keyImage = key.image;
+        Obj_Key key    = new Obj_Key();
+        this.keyImage  = key.getImage();
     }    
 
     public void showMessage(String text)
     {
-        message   = text;
-        messageOn = true;
-
+        this.message   = text;
+        this.messageOn = true;
     }
 
     public void draw(Graphics2D g2)
@@ -57,6 +60,15 @@ public class UI
             g2.drawString(text, x, y);
 
             // DEUXIEME TEXTE
+            text = "ton temps est : " + dFormat.format(playTime) + ".";
+            longueurTexte = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+
+            x = gp.getLongueurEcran() /2 - longueurTexte /2;
+            y = gp.getLargeurEcran () /2 + (gp.getTailleTuile()*4);
+
+            g2.drawString(text, x, y);
+
+            // TROISIEME TEXTE (fin du jeu)
             g2.setFont(arial_80B);
             g2.setColor(Color.YELLOW);
 
@@ -68,15 +80,19 @@ public class UI
 
             g2.drawString(text, x, y);
 
-            gp.jeuThread = null;
+            gp.finThread();
         }
         else
         {
             g2.setFont(arial_40);
             g2.setColor(Color.WHITE);
             g2.drawImage(keyImage, gp.getTailleTuile()/2, gp.getTailleTuile()/2, gp.getTailleTuile(), gp.getTailleTuile(), null );
-            g2.drawString("Key = " + gp.getPlayer().hasKey, 90, 80);
+            g2.drawString("Key = " + gp.getPlayer().getHasKey(), 90, 80);
 
+            // TIME
+
+            this.playTime += (double)1/60;
+            g2.drawString("Time : " + dFormat.format(playTime), gp.getTailleTuile()*11, 80);
             //MESSAGE
             if ( messageOn == true)
             {

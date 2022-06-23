@@ -27,18 +27,20 @@ public class GamePanel extends JPanel implements Runnable
     private final int MAX_WORLD_LIG  = 50;
     
     //système
-    private KeyHandler        keyH       = new KeyHandler      ();
-    public  CollisionChecker  cChecker   = new CollisionChecker(this);
-    public  GestionnaireTile  tileG      = new GestionnaireTile(this);
-    public  AssetSetter       aSetter    = new AssetSetter     (this);
-    public  Sound             music      = new Sound           ();
-    public  Sound             sEffect    = new Sound           ();
-    public  UI                ui         = new UI              (this);
-    public  Thread            jeuThread;                               //création d'un processus
+    private  KeyHandler        keyH       = new KeyHandler      ();
+    private  CollisionChecker  cChecker   = new CollisionChecker(this);
+    private  GestionnaireTile  tileG      = new GestionnaireTile(this);
+    private  AssetSetter       aSetter    = new AssetSetter     (this);
+    private  Sound             music      = new Sound           ();
+    private  Sound             sEffect    = new Sound           ();
+    public  UI                 ui         = new UI              (this);
+
+    //création d'un processus
+    private  Thread            jeuThread;                               
 
     //entité et objet
-    private Player           player    = new Player(this, keyH);
-    public SuperObject[]     obj        = new SuperObject[10]; 
+    private Player            player      = new Player(this, keyH);
+    private SuperObject[]     obj        = new SuperObject[10]; 
     //FPS
     int FPS = 60;
 
@@ -57,14 +59,14 @@ public class GamePanel extends JPanel implements Runnable
 
     public void setupGame()
     {
-        aSetter.setObject();
+        this.aSetter.setObject();
         this.playMusic(0);
     }
 
     public void startGameThread()
     {
-        jeuThread = new Thread(this);
-        jeuThread.start();
+        this.jeuThread = new Thread(this);
+        this.jeuThread.start();
 
     }
 
@@ -85,9 +87,9 @@ public class GamePanel extends JPanel implements Runnable
             if (delta >= 1)
             {
                 // 1 UPDATE : mise à jour des informations
-                update();
+                this.update();
                 // 2 DRAW : dessiner l'écran avec les informations mis à jour
-                repaint();
+                this.repaint();
 
                 delta--;
             } 
@@ -97,7 +99,7 @@ public class GamePanel extends JPanel implements Runnable
 
     public void update()
     {
-        player.update();
+        this.player.update();
     }
 
     public void paintComponent(Graphics g)
@@ -117,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable
         // Joueur
         player.draw(g2);
 
-        ui.draw(g2);
+        this.ui.draw(g2);
         
 
         g2.dispose(); //Supprime ce contexte graphique et libère toutes les ressources système qu'il utilise. 
@@ -142,14 +144,47 @@ public class GamePanel extends JPanel implements Runnable
     }
 
 
-    public int    getMaxEcranLig  () { return this.MAX_ECRAN_LIG ; }
-    public int    getMaxEcranCol  () { return this.MAX_ECRAN_COL ; }
-    public int    getTailleTuile  () { return this.TAILLE_TUILE  ; }
-    public int    getLongueurEcran() { return this.LONGUEUR_ECRAN; }
-    public int    getLargeurEcran () { return this.LARGEUR_ECRAN ; }
-    public int    getMaxWorldCol  () { return this.MAX_WORLD_COL ; }
-    public int    getMaxWorldLig  () { return this.MAX_WORLD_LIG ; }
-    public Player getPlayer       () { return this.player        ; }
+    public int              getMaxEcranLig  () { return this.MAX_ECRAN_LIG ; }
+    public int              getMaxEcranCol  () { return this.MAX_ECRAN_COL ; }
+    public int              getTailleTuile  () { return this.TAILLE_TUILE  ; }
+    public int              getLongueurEcran() { return this.LONGUEUR_ECRAN; }
+    public int              getLargeurEcran () { return this.LARGEUR_ECRAN ; }
+    public int              getMaxWorldCol  () { return this.MAX_WORLD_COL ; }
+    public int              getMaxWorldLig  () { return this.MAX_WORLD_LIG ; }
+    public Player           getPlayer       () { return this.player        ; }
+    public GestionnaireTile getTile         () { return this.tileG         ; }
+    public CollisionChecker getCchecker     () { return this.cChecker      ; }
+
+    public void   finThread       () { this.jeuThread = null     ; }
+
+
+    //OBJET
+
+    public void setObject (int indice, SuperObject so)
+    {
+        this.obj[indice] = so;
+    }
+    public void setNewObject (int indice, String name) 
+    { 
+
+        switch (name)
+        {
+            case "Key"   : this.obj[indice] = new Obj_Key  (); break;
+            case "Chest" : this.obj[indice] = new Obj_Chest(); break;
+            case "Boots" : this.obj[indice] = new Obj_Boots(); break;
+            case "Door"  : this.obj[indice] = new Obj_Door (); break;
+
+        }
+            
+        
+    }
+
+    public SuperObject getObject (int indice) 
+    { 
+        return this.obj[indice];
+    }
+
+    public int getTailleObject () { return this.obj.length; }
 
 
 
