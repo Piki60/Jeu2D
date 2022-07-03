@@ -20,7 +20,7 @@ public class Player extends Entity
     private final int SCREEN_Y;
 
 
-    private int refresh = 20;
+    private int refresh = 15;
     private int hasKey = 0;
 
     public Player (GamePanel gp, KeyHandler keyH)
@@ -41,7 +41,7 @@ public class Player extends Entity
         solidAreaDefaultY = solidArea.y;
 
         this.setDefaultValues();
-        this.getPlayerImage();
+        this.getPlayerImage  ();
 
 
     }
@@ -59,19 +59,18 @@ public class Player extends Entity
     {
 
         try {
-            up     = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/up.png"    ));
-            up1    = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/up1.png"   ));
-            up2    = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/up2.png"   ));
-            down   = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/down.png"  ));
-            down1  = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/down1.png" ));
-            down2  = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/down2.png" ));
-            right  = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/right.png" ));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/right1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/right2.png"));
-            left   = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/left.png"  ));
-            left1  = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/left1.png" ));
-            left2  = ImageIO.read(getClass().getResourceAsStream("/res/player/player1/left2.png" ));
-   
+            up     = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/up.png"    ));
+            up1    = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/up1.png"   ));
+            up2    = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/up2.png"   ));
+            down   = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/down.png"  ));
+            down1  = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/down1.png" ));
+            down2  = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/down2.png" ));
+            right  = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/right.png" ));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/right1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/right2.png"));
+            left   = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/left.png"  ));
+            left1  = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/left1.png" ));
+            left2  = ImageIO.read(getClass().getResourceAsStream("/res/player/player2/left2.png" ));
         } catch (IOException e) { e.printStackTrace();   }
 
     }
@@ -126,6 +125,10 @@ public class Player extends Entity
                     spriteNum = 2;
                 } 
                 else if (spriteNum == 2) 
+                {
+                    spriteNum = 3;
+                }
+                else if (spriteNum == 3)
                 {
                     spriteNum = 0;
                 }
@@ -196,23 +199,27 @@ public class Player extends Entity
         {
             case "up":
                 if (spriteNum == 0) { image = up1;} 
-                if (spriteNum == 1) { image = up;}
-                if (spriteNum == 2) { image = up2;}               
+                if (spriteNum == 1) { image = up; }
+                if (spriteNum == 2) { image = up2;}  
+                if (spriteNum == 3) { image = up; }             
                 break;
             case "down":
                 if (spriteNum == 0) { image = down1;} 
-                if (spriteNum == 1) { image = down;}
+                if (spriteNum == 1) { image = down ;}
                 if (spriteNum == 2) { image = down2;}
+                if (spriteNum == 3) { image = down ;}
                 break;
              case "right":
                 if (spriteNum == 0) { image = right1;} 
-                if (spriteNum == 1) { image = right;}
+                if (spriteNum == 1) { image = right ;}
                 if (spriteNum == 2) { image = right2;}
+                if (spriteNum == 3) { image = right ;}
                 break;
             case "left":
                 if (spriteNum == 0) { image = left1;} 
-                if (spriteNum == 1) { image = left;}
+                if (spriteNum == 1) { image = left ;}
                 if (spriteNum == 2) { image = left2;}
+                if (spriteNum == 3) { image = left ;}
                 break;
          }
 
