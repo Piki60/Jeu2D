@@ -176,10 +176,10 @@ public class GamePanel extends JPanel implements Runnable
 
         switch (name)
         {
-            case "Key"   : this.obj[indice] = new Obj_Key  (); break;
-            case "Chest" : this.obj[indice] = new Obj_Chest(); break;
-            case "Boots" : this.obj[indice] = new Obj_Boots(); break;
-            case "Door"  : this.obj[indice] = new Obj_Door (); break;
+            case "Key"   : this.obj[indice] = new Obj_Key  (this); break;
+            case "Chest" : this.obj[indice] = new Obj_Chest(this); break;
+            case "Boots" : this.obj[indice] = new Obj_Boots(this); break;
+            case "Door"  : this.obj[indice] = new Obj_Door (this); break;
 
         }
             

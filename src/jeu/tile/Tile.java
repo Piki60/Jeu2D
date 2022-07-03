@@ -14,10 +14,8 @@ public class Tile
 
     }
 
-    public BufferedImage getImage() 
-    {
-        return this.image;
-    }
+    public BufferedImage getImage()                  { return this.image;}
+    public void          setImage(BufferedImage bfi) { this.image = bfi ;}
 
 
     public void    setCollision (boolean b) { this.collision = b   ;}

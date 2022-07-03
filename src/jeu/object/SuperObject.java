@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import jeu.main.GamePanel;
+import jeu.main.UtilityTool;
 
 public abstract class SuperObject 
 {
@@ -15,6 +16,8 @@ public abstract class SuperObject
     protected Rectangle     solidArea = new Rectangle(0, 0, 64, 64);
     protected int           solidAreaDefaultX = 0;
     protected int           solidAreaDefaultY = 0;
+
+    protected UtilityTool uTool = new UtilityTool();
 
 
 
