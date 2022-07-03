@@ -1,0 +1,24 @@
+-encoding utf8
+
+./jeu/entity/Entity.java
+./jeu/entity/Player.java
+
+./jeu/main/AssetSetter.java
+./jeu/main/CollisionChecker.java
+./jeu/main/GamePanel.java
+./jeu/main/KeyHandler.java
+./jeu/main/Sound.java
+./jeu/main/UI.java
+./jeu/main/Main.java
+
+./jeu/object/Obj_Boots.java
+./jeu/object/Obj_Chest.java
+./jeu/object/Obj_Door.java
+./jeu/object/Obj_Key.java
+./jeu/object/SuperObject.java
+
+./jeu/tile/GestionnaireTile.java
+./jeu/tile/Tile.java
+
+
+-d C:\iut\TP\java\paquetage_class
