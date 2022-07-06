@@ -13,7 +13,7 @@ import jeu.object.Obj_Chest;
 import jeu.object.Obj_Door;
 import jeu.object.Obj_Key;
 import jeu.object.SuperObject;
-import jeu.tile.GestionnaireTile;
+import jeu.tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable
 {
@@ -36,11 +36,11 @@ public class GamePanel extends JPanel implements Runnable
     //système
     private  KeyHandler        keyH       = new KeyHandler      ();
     private  CollisionChecker  cChecker   = new CollisionChecker(this);
-    private  GestionnaireTile  tileG      = new GestionnaireTile(this);
+    private  TileManager       tileM      = new TileManager     (this);
     private  AssetSetter       aSetter    = new AssetSetter     (this);
     private  Sound             music      = new Sound           ();
     private  Sound             sEffect    = new Sound           ();
-    public  UI                 ui         = new UI              (this);
+    public   UI                ui         = new UI              (this);
 
     //création d'un processus
     private  Thread            jeuThread;                               
@@ -117,7 +117,7 @@ public class GamePanel extends JPanel implements Runnable
 
         // Tuile
 
-        tileG.draw(g2);
+        tileM.draw(g2);
 
         //Object
         for ( int cpt = 0; cpt < obj.length; cpt++)
@@ -159,7 +159,7 @@ public class GamePanel extends JPanel implements Runnable
     public int              getMaxWorldCol  () { return this.MAX_WORLD_COL ; }
     public int              getMaxWorldLig  () { return this.MAX_WORLD_LIG ; }
     public Player           getPlayer       () { return this.player        ; }
-    public GestionnaireTile getTile         () { return this.tileG         ; }
+    public TileManager      getTile         () { return this.tileM         ; }
     public CollisionChecker getCchecker     () { return this.cChecker      ; }
 
     public void   finThread       () { this.jeuThread = null     ; }
