@@ -11,20 +11,20 @@ import javax.imageio.ImageIO;
 import jeu.main.GamePanel;
 import jeu.main.UtilityTool;
 
-public class GestionnaireTile 
+public class TileManager 
 {
     private GamePanel gp;
     public  Tile[] tile;
     public  int mapTileNumber[][];
 
-    public GestionnaireTile(GamePanel gp)
+    public TileManager(GamePanel gp)
     {
         this.gp            = gp;
-        this.tile          = new Tile[10];
+        this.tile          = new Tile[53];
         this.mapTileNumber = new int[gp.getMaxWorldCol()][gp.getMaxWorldLig()];
 
         this.getTileImage();
-        this.loadMap("/res/background/map/map1.txt");
+        this.loadMap("/res/background/map/map3.txt");
 
     }
 
@@ -42,7 +42,8 @@ public class GestionnaireTile
             {
                 String line = br.readLine();
 
-                while (col < gp.getMaxWorldCol()) {
+                while (col < gp.getMaxWorldCol()) 
+                {
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
 
@@ -67,12 +68,73 @@ public class GestionnaireTile
     public void getTileImage()
     {
 
-        this.setup(0, "grass", false);
-        this.setup(1, "wall", true);
-        this.setup(2, "water", true);
-        this.setup(3, "dirt", false);
-        this.setup(4, "tree", true);
-        this.setup(5, "sand", false);
+        //TUILES NON UTILISEES
+        
+        this.setup(0, "grass00", false);
+        this.setup(1, "grass00" , true );
+        this.setup(2, "grass00", true );
+        this.setup(3, "grass00" , false);
+        this.setup(4, "grass00" , true );
+        this.setup(5, "grass00" , false);
+        this.setup(6, "grass00", false);
+        this.setup(7, "grass00" , true );
+        this.setup(8, "grass00", true );
+        this.setup(9, "grass00" , false);
+
+        //TUILES UTILISEES
+
+        //grass
+        this.setup(10, "grass00" , false);
+
+        //road
+        this.setup(11, "road00"  , false);
+        this.setup(12, "road01"  , false);
+        this.setup(13, "road02"  , false);
+        this.setup(14, "road03"  , false);
+        this.setup(15, "road04"  , false);
+        this.setup(16, "road05"  , false);
+        this.setup(17, "road06"  , false);
+        this.setup(18, "road07"  , false);
+        this.setup(19, "road08"  , false);
+        this.setup(20, "road09"  , false);
+        this.setup(21, "road10"  , false);
+        this.setup(22, "road11"  , false);
+        this.setup(23, "road12"  , false);
+        this.setup(24, "road13"  , false);
+        this.setup(25, "road14"  , false);
+        this.setup(26, "road15"  , false);
+        this.setup(27, "road16"  , false);
+        this.setup(28, "road17"  , false);
+        this.setup(29, "road18"  , false);
+
+
+        //tree
+        this.setup(30, "tree07"  , true);
+        this.setup(31, "tree08"  , true);
+        this.setup(32, "tree09"  , true);
+        this.setup(33, "tree10"  , true);
+        this.setup(34, "tree11"  , true);
+        this.setup(35, "tree12"  , true);
+        this.setup(36, "tree13"  , true);
+        this.setup(37, "tree14"  , true);
+
+        //water
+        this.setup(38, "water00"  , true);
+        this.setup(39, "water01"  , true);
+        this.setup(40, "water02"  , true);
+        this.setup(41, "water03"  , true);
+        this.setup(42, "water04"  , true);
+        this.setup(43, "water05"  , true);
+        this.setup(44, "water06"  , true);
+        this.setup(45, "water07"  , true);
+        this.setup(46, "water08"  , true);
+        this.setup(47, "water09"  , true);
+        this.setup(48, "water10"  , true);
+        this.setup(49, "water11"  , true);
+        this.setup(50, "water12"  , true);
+        this.setup(51, "water13"  , true);
+
+        this.setup(52, "sand00", false);
 
     }
 
@@ -82,7 +144,7 @@ public class GestionnaireTile
 
         try 
         {
-            this.tile[index] = new Tile (ImageIO.read(getClass().getResourceAsStream("/res/background/" + imageName + ".png")));
+            this.tile[index] = new Tile (ImageIO.read(getClass().getResourceAsStream("/res/background/tile/" + imageName + ".png")));
             this.tile[index].setImage( uTool.scaleImage(tile[index].getImage(), gp.getTailleTuile(), gp.getTailleTuile()) );
             this.tile[index].setCollision(collision);
 
