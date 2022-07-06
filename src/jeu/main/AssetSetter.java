@@ -12,7 +12,7 @@ public class AssetSetter
 
     public void setObject()
     {
-        gp.setNewObject(0, "Key");
+        /*gp.setNewObject(0, "Key");
         gp.getObject   (0).setWorldX(23 * gp.getTailleTuile());
         gp.getObject   (0).setWorldY( 7 * gp.getTailleTuile());
 
@@ -42,7 +42,7 @@ public class AssetSetter
 
         gp.setNewObject(7, "Boots");
         gp.getObject(7).setWorldX(37 * gp.getTailleTuile());
-        gp.getObject(7).setWorldY(42 * gp.getTailleTuile());
+        gp.getObject(7).setWorldY(42 * gp.getTailleTuile());*/
     }
 
 

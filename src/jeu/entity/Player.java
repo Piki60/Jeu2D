@@ -49,8 +49,8 @@ public class Player extends Entity
 
     public void setDefaultValues()
     {
-        worldX    = gp.getTailleTuile() * 22;
-        worldY    = gp.getTailleTuile() * 24;
+        worldX    = gp.getTailleTuile() * 13;
+        worldY    = gp.getTailleTuile() * 16;
         vitesse   = 7;
         direction = "down";
 
@@ -94,13 +94,20 @@ public class Player extends Entity
         // on ne rentre dans la boucle que si on appuie sur l'une des touches claviers
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) 
         {
-            if (keyH.upPressed == true) {
+            if (keyH.upPressed == true) 
+            {
                 direction = "up";
-            } else if (keyH.downPressed == true) {
+            } 
+            else if (keyH.downPressed == true) 
+            {
                 direction = "down";                
-            } else if (keyH.leftPressed == true) {
+            } 
+            else if (keyH.leftPressed == true) 
+            {
                 direction = "left";               
-            } else if (keyH.rightPressed == true) {
+            } 
+            else if (keyH.rightPressed == true) 
+            {
                 direction = "right";               
             }
 
@@ -136,18 +143,34 @@ public class Player extends Entity
                 } 
                 else if (spriteNum == 1) 
                 {
-                    spriteNum = 2;
-                } 
-                else if (spriteNum == 2) 
-                {
-                    spriteNum = 3;
-                }
-                else if (spriteNum == 3)
-                {
                     spriteNum = 0;
                 }
 
                 spriteCounter = -1;  // il retourne à -1 pour débuter à 0 et recommencer la boucle
+            }
+
+        }
+        else if (keyH.upReleased == true || keyH.downReleased == true || keyH.leftReleased == true || keyH.rightReleased == true) 
+        {
+            if (keyH.upReleased == true) 
+            {
+                System.out.println("Vous avez relachez la touche Z");
+                direction = "noneUp";
+            } 
+            else if (keyH.downReleased == true) 
+            {
+                System.out.println("Vous avez relachez la touche S");
+                direction = "noneDown";                
+            } 
+            else if (keyH.leftReleased == true) 
+            {
+                System.out.println("Vous avez relachez la touche Q");
+                direction = "noneLeft";               
+            } 
+            else if (keyH.rightReleased == true) 
+            {
+                System.out.println("Vous avez relachez la touche D");
+                direction = "noneRight";               
             }
 
         }
@@ -206,35 +229,41 @@ public class Player extends Entity
         //g2.setColor(Color.WHITE);
         //g2.fillRect(x, y, gp.getTailleTuile(), gp.getTailleTuile()); // crée un rectangle et le rempli de la couleur de notre brush
 
-        BufferedImage image = null;
+        BufferedImage image     = null;
 
         /*choisit les images en fonction du numéro du sprite */
         switch(direction)
         {
             case "up":
                 if (spriteNum == 0) { image = up1;} 
-                if (spriteNum == 1) { image = up; }
-                if (spriteNum == 2) { image = up2;}  
-                if (spriteNum == 3) { image = up; }             
+                if (spriteNum == 1) { image = up2;}             
                 break;
             case "down":
                 if (spriteNum == 0) { image = down1;} 
-                if (spriteNum == 1) { image = down ;}
-                if (spriteNum == 2) { image = down2;}
-                if (spriteNum == 3) { image = down ;}
+                if (spriteNum == 1) { image = down2;}
                 break;
              case "right":
-                if (spriteNum == 0) { image = right1;} 
-                if (spriteNum == 1) { image = right ;}
-                if (spriteNum == 2) { image = right2;}
-                if (spriteNum == 3) { image = right ;}
+                if (spriteNum == 0) { image = right1;}
+                if (spriteNum == 1) { image = right2;}
                 break;
             case "left":
-                if (spriteNum == 0) { image = left1;} 
-                if (spriteNum == 1) { image = left ;}
-                if (spriteNum == 2) { image = left2;}
-                if (spriteNum == 3) { image = left ;}
+                if (spriteNum == 0) { image = left1;}
+                if (spriteNum == 1) { image = left2;}
                 break;
+            case "noneUp" :
+                image = up;
+                break;
+            case "noneDown" :
+                image = down;
+                break;
+            case "noneRight" :
+                image = right;
+                break;
+            case "noneLeft" :
+                image = left;
+                break;
+                
+            
          }
 
         g2.drawImage(image, SCREEN_X, SCREEN_Y, null);
