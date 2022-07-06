@@ -9,6 +9,7 @@
 ./jeu/main/KeyHandler.java
 ./jeu/main/Sound.java
 ./jeu/main/UI.java
+./jeu/main/UtilityTool.java
 ./jeu/main/Main.java
 
 ./jeu/object/Obj_Boots.java
@@ -17,7 +18,7 @@
 ./jeu/object/Obj_Key.java
 ./jeu/object/SuperObject.java
 
-./jeu/tile/GestionnaireTile.java
+./jeu/tile/TileManager.java
 ./jeu/tile/Tile.java
 
 
