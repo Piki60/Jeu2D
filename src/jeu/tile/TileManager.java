@@ -68,26 +68,38 @@ public class TileManager
     public void getTileImage()
     {
 
-        //TUILES NON UTILISEES
+        /*----------------------------------------------------------------------------------------------------------- */
+        /*                                               TUILES NON UTILISEES                                         */
+        /*----------------------------------------------------------------------------------------------------------- */
         
-        this.setup(0, "grass00", false);
-        this.setup(1, "grass00", false);
-        this.setup(2, "grass00", false);
-        this.setup(3, "grass00", false);
-        this.setup(4, "grass00", false);
-        this.setup(5, "grass00", false);
-        this.setup(6, "grass00", false);
-        this.setup(7, "grass00", false);
-        this.setup(8, "grass00", false);
-        this.setup(9, "grass00", false);
+        // de 0 à 9
 
-        //TUILES UTILISEES
+        for (int i = 0; i <= 9; i++)
+        {
+            this.setup(i, "grass00", false);
+        }
 
-        //grass
+        /*----------------------------------------------------------------------------------------------------------- */
+        /*                                                 TUILES UTILISEES                                           */
+        /*----------------------------------------------------------------------------------------------------------- */
+
+        /* ------- */
+        /*  grass  */
+        /* ------- */
+
         this.setup(10, "grass00" , false);
 
-        //road
-        this.setup(11, "road00"  , false);
+        /* ------- */
+        /*  road  */
+        /* ------- */
+
+        // de 11 à 20
+        for (int i = 11; i < 21; i++ )
+        {
+            this.setup(i, "road0"+ (i-11), false);
+        }
+
+        /*this.setup(11, "road00"  , false);
         this.setup(12, "road01"  , false);
         this.setup(13, "road02"  , false);
         this.setup(14, "road03"  , false);
@@ -96,7 +108,9 @@ public class TileManager
         this.setup(17, "road06"  , false);
         this.setup(18, "road07"  , false);
         this.setup(19, "road08"  , false);
-        this.setup(20, "road09"  , false);
+        this.setup(20, "road09"  , false);*/
+
+
         this.setup(21, "road10"  , false);
         this.setup(22, "road11"  , false);
         this.setup(23, "road12"  , false);
