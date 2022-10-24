@@ -71,15 +71,15 @@ public class TileManager
         //TUILES NON UTILISEES
         
         this.setup(0, "grass00", false);
-        this.setup(1, "grass00" , true );
-        this.setup(2, "grass00", true );
-        this.setup(3, "grass00" , false);
-        this.setup(4, "grass00" , true );
-        this.setup(5, "grass00" , false);
+        this.setup(1, "grass00", false);
+        this.setup(2, "grass00", false);
+        this.setup(3, "grass00", false);
+        this.setup(4, "grass00", false);
+        this.setup(5, "grass00", false);
         this.setup(6, "grass00", false);
-        this.setup(7, "grass00" , true );
-        this.setup(8, "grass00", true );
-        this.setup(9, "grass00" , false);
+        this.setup(7, "grass00", false);
+        this.setup(8, "grass00", false);
+        this.setup(9, "grass00", false);
 
         //TUILES UTILISEES
 
@@ -109,7 +109,7 @@ public class TileManager
 
 
         //tree
-        this.setup(30, "tree07"  , true);
+        this.setup(30, "tree"  , true);
         this.setup(31, "tree08"  , true);
         this.setup(32, "tree09"  , true);
         this.setup(33, "tree10"  , true);
@@ -135,6 +135,7 @@ public class TileManager
         this.setup(51, "water13"  , true);
 
         this.setup(52, "sand00", false);
+
 
     }
 
